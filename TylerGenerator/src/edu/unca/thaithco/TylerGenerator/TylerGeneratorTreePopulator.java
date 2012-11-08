@@ -16,10 +16,16 @@ public class TylerGeneratorTreePopulator extends BlockPopulator{
 		
 		for (x = 0; x < 16; x++){
 			for(z = 0; z < 16; z++){
-				if (random.nextInt(10) < 4){
+				int r = random.nextInt(10);
+				if (r < 4){
 					for(y = 96; chunk.getBlock(x, y, z).getType() == Material.AIR; y--);
-					chunk.getBlock(x, y+1, z).setType(Material.LONG_GRASS);
-					chunk.getBlock(x, y+1, z).setData((byte)1);
+					if(chunk.getBlock(x, y, z).getType() == Material.GRASS){
+						chunk.getBlock(x, y+1, z).setType(Material.LONG_GRASS);
+						chunk.getBlock(x, y+1, z).setData((byte)1);
+					}
+					if(chunk.getBlock(x, y, z).getType() == Material.STATIONARY_WATER && r < 1){
+						chunk.getBlock(x, y+1, z).setType(Material.WATER_LILY);
+					}
 				}
 				if(random.nextInt(10) <= 1 && chunk.getBlock(x, world.getHighestBlockYAt(x,z), z).getType() == Material.AIR){
 					TreeType type = (random.nextInt(10) >= 3) ? TreeType.BIG_TREE : TreeType.TREE;

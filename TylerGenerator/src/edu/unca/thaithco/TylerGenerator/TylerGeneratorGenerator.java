@@ -55,15 +55,16 @@ public class TylerGeneratorGenerator extends ChunkGenerator{
 				for(y = 1; y < noise + 64; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.STONE.getId();
 				}
-				for(y = (int)(noise + 64); y < noise + 71; y++) {
+				for(y = (int)(noise + 64); y < noise + 72; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.DIRT.getId();
 				}
-				for(y = (int)(noise + 71); y < noise + 72; y++) {
-					blocks[this.coordsToInt(x, y, z)] = (byte)Material.GRASS.getId();
+				blocks[this.coordsToInt(x, y, z)] = (byte)Material.GRASS.getId();
+				for(y = 0; y < 64; y++){
+					if(blocks[this.coordsToInt(x, y, z)] == (byte)Material.AIR.getId()){
+						blocks[this.coordsToInt(x, y, z)] = (byte)Material.STATIONARY_WATER.getId();
+					}
 				}
-				if(blocks[this.coordsToInt(x, y, z)] == (byte)Material.AIR.getId() && y <= 64){
-					blocks[this.coordsToInt(x, y, z)] = (byte)Material.STATIONARY_WATER.getId();
-				}
+				
 			}
 		}
 		
