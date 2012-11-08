@@ -6,6 +6,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
 
 public class TylerGeneratorTreePopulator extends BlockPopulator{
@@ -23,7 +24,7 @@ public class TylerGeneratorTreePopulator extends BlockPopulator{
 						chunk.getBlock(x, y+1, z).setType(Material.LONG_GRASS);
 						chunk.getBlock(x, y+1, z).setData((byte)1);
 					}
-					if(chunk.getBlock(x, y, z).getType() == Material.STATIONARY_WATER && r < 1){
+					if(chunk.getBlock(x, y, z).getType() == Material.STATIONARY_WATER && chunk.getBlock(x, y, z).getBiome() == Biome.SWAMPLAND && r < 1){
 						chunk.getBlock(x, y+1, z).setType(Material.WATER_LILY);
 					}
 				}

@@ -52,14 +52,22 @@ public class TylerGeneratorGenerator extends ChunkGenerator{
 				blocks[this.coordsToInt(x, 0, z)] = (byte)Material.BEDROCK.getId();
 				
 				double noise = octave.noise((chunkX * 16) + x, (chunkZ * 16) + z, 0.25, 0.25) * 32;
+				double sandNois = octave.noise((chunkX * 16) + x, (chunkZ * 16) + z, 0.25, 0.25) * 15;
 				for(y = 1; y < noise + 64; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.STONE.getId();
 				}
 				for(y = (int)(noise + 64); y < noise + 72; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.DIRT.getId();
 				}
-				blocks[this.coordsToInt(x, y, z)] = (byte)Material.GRASS.getId();
-				for(y = 0; y < 64; y++){
+				if(y>=70)
+					blocks[this.coordsToInt(x, y, z)] = (byte)Material.GRASS.getId();
+				
+				for(y = (int)(noise + 64); y < sandNois + 72; y++){
+					if(blocks[this.coordsToInt(x, y, z)] == (byte)Material.AIR.getId())
+						blocks[this.coordsToInt(x, y, z)] = (byte)Material.SAND.getId();
+				}
+				
+				for(y = 0; y < 70; y++){
 					if(blocks[this.coordsToInt(x, y, z)] == (byte)Material.AIR.getId()){
 						blocks[this.coordsToInt(x, y, z)] = (byte)Material.STATIONARY_WATER.getId();
 					}
