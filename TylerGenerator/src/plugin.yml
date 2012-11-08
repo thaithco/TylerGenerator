@@ -1,0 +1,4 @@
+name: TylerGenerator
+version: 0.1
+main: edu.unca.thaithco.TylerGenerator.TylerGenerator
+load: startup
