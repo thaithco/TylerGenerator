@@ -48,9 +48,10 @@ public class TylerGeneratorGenerator extends ChunkGenerator{
 		
 		for(x = 0; x < 16; x++) {
 			for(z = 0; z < 16; z++) {
+				
 				blocks[this.coordsToInt(x, 0, z)] = (byte)Material.BEDROCK.getId();
 				
-				double noise = octave.noise((chunkX * 16) + x, (chunkZ * 16) + z, 0.5, 0.5) * 32;
+				double noise = octave.noise((chunkX * 16) + x, (chunkZ * 16) + z, 0.25, 0.25) * 32;
 				for(y = 1; y < noise + 64; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.STONE.getId();
 				}
@@ -59,6 +60,9 @@ public class TylerGeneratorGenerator extends ChunkGenerator{
 				}
 				for(y = (int)(noise + 71); y < noise + 72; y++) {
 					blocks[this.coordsToInt(x, y, z)] = (byte)Material.GRASS.getId();
+				}
+				if(blocks[this.coordsToInt(x, y, z)] == (byte)Material.AIR.getId() && y <= 64){
+					blocks[this.coordsToInt(x, y, z)] = (byte)Material.STATIONARY_WATER.getId();
 				}
 			}
 		}
